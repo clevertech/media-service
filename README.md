@@ -75,15 +75,15 @@ The `finalPath` might be different to the `destinationPath` if you use `appendEx
 | `height` | Optional. Height of the image |
 | `resize` | Optional. Used only when specifying a `width` or `height`. If not used the resized image is center cropped to the exact size specified. If "min" is used the resized image is as small as possible while ensuring its dimensions are greater than or equal to the `width` and `height` specified. If "max" is used the resized image is as large as possible while ensuring its dimensions are less than or equal to the `width` and `height` specified |
 | `ignoreAspectRatio` | Optional. By default when specifying a `width` or `height` the aspect ratio is preserved. If you set `ignoreAspectRatio` to `true` the image will be resized ignoring it |
-| `autoRotate` | Optional. Performs an auto-orient based on the EXIF `Orientation` tag |
-| `normalize` | Optional. Enhance output image contrast by stretching its luminance to cover the full dynamic range |
-| `grayscale` | Optional. Convert to 8-bit greyscale; 256 shades of grey |
+| `autoRotate` | Optional. If `true`, it performs an auto-orient based on the EXIF `Orientation` tag |
+| `normalize` | Optional. If `true` it enhances the output image contrast by stretching its luminance to cover the full dynamic range |
+| `grayscale` | Optional. If `true` it converts to 8-bit greyscale; 256 shades of grey |
 | `format` | Optional. Format of the output image. Can be `jpeg`, `png`, `webp` or `tiff`. If not specified the format of the original image will be used if supported |
-| `appendExtension` | Optional. If `true` the `destinationPath` will be modified to append an extension to the uploaded file. If you don't specify a `format` and the input image is not `jpeg`, `png`, `webp` or `tiff` the extension might not be calculated and the `destinationPath` will keep untouch. |
+| `appendExtension` | Optional. If `true` the `destinationPath` will be modified to append an extension to the uploaded file. If you don't specify a `format` and the input image is not `jpeg`, `png`, `webp` or `tiff` the extension might not be calculated and the `destinationPath` will be kept untouch. |
 | `jpegOptions` | Optional. JPEG codec options. You can use any of the available [sharp jpeg options](http://sharp.dimens.io/en/stable/api-output/#jpeg) except for `force` |
 | `pngOptions` | Optional. PNG codec options. You can use any of the available [sharp png options](http://sharp.dimens.io/en/stable/api-output/#png) except for `force` |
-| `webpOptions` | Optional. JPEG codec options. You can use any of the available [sharp webp options](http://sharp.dimens.io/en/stable/api-output/#webp) except for `force` |
-| `tiffOptions` | Optional. JPEG codec options. You can use any of the available [sharp tiff options](http://sharp.dimens.io/en/stable/api-output/#tiff) except for `force` |
+| `webpOptions` | Optional. WEBP codec options. You can use any of the available [sharp webp options](http://sharp.dimens.io/en/stable/api-output/#webp) except for `force` |
+| `tiffOptions` | Optional. TIFF codec options. You can use any of the available [sharp tiff options](http://sharp.dimens.io/en/stable/api-output/#tiff) except for `force` |
 
 The `contentType` might be calculated if not specified but you specify an image `format` or `appendExtension` is set to `true`.
 
@@ -97,7 +97,7 @@ const mediaService = require('pnp-media-service')
 let mediaClient = null
 const mediaServer = mediaService.startServer(config, () => {
   const port = mediaServer.address().port
-  const url = `http://127.0.0.1:${port}/media/upload`
+  const url = `http://127.0.0.1:${port}/media`
   mediaClient = mediaService.createClient(url)
 })
 

@@ -41,7 +41,8 @@ module.exports = env => {
       format,
       jpegOptions,
       pngOptions,
-      webpOptions
+      webpOptions,
+      tiffOptions
     } = imageOperations
     const image = sharp(localPath)
 
@@ -72,6 +73,7 @@ module.exports = env => {
     image.jpeg(Object.assign({}, jpegOptions, { force: false }))
     image.png(Object.assign({}, pngOptions, { force: false }))
     image.webp(Object.assign({}, webpOptions, { force: false }))
+    image.tiff(Object.assign({}, tiffOptions, { force: false }))
 
     if (!appendExtension) return Promise.resolve(image)
     return Promise.resolve()
