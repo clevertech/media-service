@@ -129,3 +129,14 @@ This is the list of available configuration options:
 | `AWS_SECRET` | AWS Secret for uploading files using Amazon S3 |
 | `AWS_S3_BUCKET` | AWS S3 bucket where files will be stored |
 
+## Testing
+
+Create a `.env` file with this configuration:
+
+```
+AWS_KEY=...
+AWS_SECRET=...
+AWS_S3_BUCKET=...
+```
+
+Then run the tests with `yarn test`

@@ -39,3 +39,25 @@ test('Upload image with image operations', t => {
         })
     })
 })
+
+test('Fail to upload an image', t => {
+  return getClient()
+    .then(mediaClient => {
+      const imageOperations = {
+        width: 256,
+        height: 256,
+        autoRotate: true,
+        appendExtension: true,
+        format: 'foo'
+      }
+      const localPath = path.join(__dirname, 'picture.jpg')
+      const destinationPath = 'picture'
+      return mediaClient.upload({ localPath, destinationPath, imageOperations })
+        .then(response => {
+          t.fail('Should have failed because the output format is not valid')
+        })
+        .catch(err => {
+          t.is(err.message, 'Unsupported output format foo')
+        })
+    })
+})
