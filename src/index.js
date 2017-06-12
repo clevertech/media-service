@@ -22,23 +22,42 @@ exports.createRouter = (config = {}) => {
   return router
 }
 
-exports.createClient = baseUrl => {
+const createClient = (getBaseUrl) => {
   return {
     upload (options) {
-      return fetch(baseUrl + '/upload', {
-        method: 'POST',
-        body: JSON.stringify(options),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(res => {
-        return res.json()
-          .then(json => {
-            if (res.status < 400) return json
-            return Promise.reject(new Error(json.error))
+      return getBaseUrl
+        .then(baseUrl => {
+          return fetch(baseUrl + '/upload', {
+            method: 'POST',
+            body: JSON.stringify(options),
+            headers: { 'Content-Type': 'application/json' }
           })
-      })
+        })
+        .then(res => {
+          return res.json()
+            .then(json => {
+              if (res.status < 400) return json
+              return Promise.reject(new Error(json.error))
+            })
+        })
     }
   }
+}
+
+exports.createServerAndClient = (config) => {
+  return createClient(
+    new Promise((resolve, reject) => {
+      const mediaServer = exports.startServer(config, (err) => {
+        if (err) return reject(err)
+        const port = mediaServer.address().port
+        resolve(`http://127.0.0.1:${port}/media`)
+      })
+    })
+  )
+}
+
+exports.createClient = baseUrl => {
+  return createClient(Promise.resolve(baseUrl))
 }
 
 exports.startServer = (config, callback) => {
