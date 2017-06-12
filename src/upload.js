@@ -27,8 +27,12 @@ module.exports = env => {
   }
 
   const transform = (options) => {
-    const { localPath, destinationPath, imageOperations } = options
-    if (!imageOperations) return Promise.resolve(fs.createReadStream(localPath))
+    const { buffer, localPath, destinationPath, imageOperations } = options
+    if (!imageOperations) {
+      return Promise.resolve(
+        localPath ? fs.createReadStream(localPath) : Buffer.from(buffer, 'base64')
+      )
+    }
     const {
       width,
       height,
@@ -44,7 +48,7 @@ module.exports = env => {
       webpOptions,
       tiffOptions
     } = imageOperations
-    const image = sharp(localPath)
+    const image = sharp(localPath || Buffer.from(buffer, 'base64'))
 
     if (width || height) {
       image.resize(width, height)

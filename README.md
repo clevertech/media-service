@@ -41,7 +41,8 @@ You need to send a JSON body with the following structure:
 
 ```javascript
 {
-  "localPath": "", // Required. Path to the file in the local system
+  "localPath": "", // Required (unless `buffer` is specified). Path to the file in the local system
+  "buffer": "", // Required (unless `localPath` is specified). Contents of the file in base64 encoding
   "destinationPath": "", // Required. Path where the file will be uploaded
   "contentType": "", // Optiona. MIME type of the uploaded file. If not specified the service will try to calculate a proper one
   "expires": 60, // Optional. Number of seconds the file can be cached by an HTTP client
@@ -128,6 +129,7 @@ This is the list of available configuration options:
 | `AWS_KEY` | AWS Key for uploading files using Amazon S3 |
 | `AWS_SECRET` | AWS Secret for uploading files using Amazon S3 |
 | `AWS_S3_BUCKET` | AWS S3 bucket where files will be stored |
+| `REQUEST_SIZE_LIMIT` | The request size limit specified to `body-parser` in its [`limit`](https://github.com/expressjs/body-parser#limit) setting. `50mb` by default` |
 
 ## Testing
 

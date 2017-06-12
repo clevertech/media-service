@@ -10,7 +10,9 @@ exports.createRouter = (config = {}) => {
   const service = require('./upload')(env)
 
   const router = express.Router()
-  router.use(bodyParser.json({}))
+  router.use(bodyParser.json({
+    limit: env('REQUEST_SIZE_LIMIT', '50mb')
+  }))
   router.post('/upload', (req, res, next) => {
     const { body } = req
     service.upload(body)

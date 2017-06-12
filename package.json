@@ -1,6 +1,6 @@
 {
   "name": "pnp-media-service",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Media manipulation and storage microservice",
   "main": "src/index.js",
   "scripts": {
